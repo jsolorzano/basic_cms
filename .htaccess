@@ -1,0 +1,14 @@
+#Impedir que se pueda ver el listado de contenidos de los directorios del sistema
+
+Options All -Indexes
+
+#URLS AMIGABLES
+#Activar RewriteEngine
+
+RewriteEngine On
+
+#Reescritura de url. La palabra escrita en la url ocupará el lugar de la variable de $1.
+#Esto significa que si ingresamos a: http://localhost/basic_crud/ingresar 
+#en realidad estamos accediendo a: http://localhost/basic_crud/index.php?action=ingresar
+#por lo que la variable get 'action' sigue siendo utilizable normalmente en el sistema.
+RewriteRule ^(\w+)$ index.php?action=$1
