@@ -82,6 +82,7 @@ $("#columnasSlide").on("drop", function(e){
 			cache: false,
 			contentType: false,
 			processData: false,
+			dataType: "json",
 			beforeSend: function(){
 				
 				$("#columnasSlide").before("<img src='views/images/status.gif' id='status'>");
@@ -90,6 +91,8 @@ $("#columnasSlide").on("drop", function(e){
 			success: function(respuesta){
 				
 				console.log('respuesta', respuesta);
+				
+				$("#status").remove();
 			
 				if(respuesta == 0){
 					
@@ -97,7 +100,9 @@ $("#columnasSlide").on("drop", function(e){
 					
 				}else{
 					
-					$("#columnasSlide").append('<li class="bloqueSlide"><span class="fa fa-times"></span><img src="" class="handleImg"></li>');
+					$("#columnasSlide").css({"height":"auto"});
+					
+					$("#columnasSlide").append('<li class="bloqueSlide"><span class="fa fa-times"></span><img src="'+respuesta["ruta"].slice(6)+'" class="handleImg"></li>');
 					
 				}
 			

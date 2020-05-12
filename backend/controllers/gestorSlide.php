@@ -26,9 +26,15 @@ class GestorSlide{
 			// Enviar imagen a la ruta especificada
 			imagejpeg($origen, $ruta);
 			
-			echo 1;
-			
 			// Tanto imagecreatefromjpeg() como imagejpeg() son funciones nativas de php
+			
+			GestorSlideModel::subirImagenSlideModel($ruta, "slide");
+			
+			$respuesta = GestorSlideModel::mostrarImagenSlideModel($ruta, "slide");
+			
+			$enviarDatos = array("ruta"=>$respuesta['ruta']);
+			
+			echo json_encode($enviarDatos);
 			
 		}
 		
