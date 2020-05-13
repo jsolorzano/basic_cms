@@ -26,18 +26,58 @@ class GestorSlide{
 			// Enviar imagen a la ruta especificada
 			imagejpeg($origen, $ruta);
 			
-			// Tanto imagecreatefromjpeg() como imagejpeg() son funciones nativas de php
+			// Tanto imagecreatefromjpeg() como imagejpeg() son funciones de la extensión 'gd' de php
 			
+			// Registramos en base de datos la ruta de la imagen
 			GestorSlideModel::subirImagenSlideModel($ruta, "slide");
 			
+			// Consultamos la ruta registrada y armamos un json con ella
 			$respuesta = GestorSlideModel::mostrarImagenSlideModel($ruta, "slide");
 			
-			$enviarDatos = array("ruta"=>$respuesta['ruta']);
+			$enviarDatos = array(
+				"ruta"=>$respuesta['ruta'],
+				"titulo"=>$respuesta['titulo'],
+				"descripcion"=>$respuesta['descripcion']
+			);
 			
 			echo json_encode($enviarDatos);
 			
 		}
 		
 	}
+	
+	// Listar imágenes en la vista
+	// -----------------------------------------------------------------
+	public function mostrarImagenVistaController(){
+		
+		$respuesta = GestorSlideModel::mostrarImagenVistaModel("slide");
+		
+		foreach($respuesta as $key => $item){
+			
+			echo '<li class="bloqueSlide"><span class="fa fa-times"></span><img src="'.substr($item['ruta'], 6).'" class="handleImg"></li>';
+			
+		}
+		
+	}
+	
+	// Listar imágenes en el editor
+	// -----------------------------------------------------------------
+	public function editorSlideController(){
+		
+		$respuesta = GestorSlideModel::mostrarImagenVistaModel("slide");
+		
+		foreach($respuesta as $key => $item){
+			
+			echo '<li>
+					<span class="fa fa-pencil" style="background:blue"></span>
+					<img src="'.substr($item['ruta'], 6).'" style="float:left; margin-bottom:10px" width="80%">
+					<h1>'.$item['titulo'].'</h1>
+					<p>'.$item['descripcion'].'</p>
+				</li>';
+			
+		}
+		
+	}
+	
 	
 }
