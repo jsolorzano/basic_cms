@@ -23,8 +23,14 @@ class GestorSlide{
 			// Crear la imagen con php a partir de la que llega desde ajax
 			$origen = imagecreatefromjpeg($datos["imagenTemporal"]);
 			
+			// imagecrop() - Recorta una imagen usando las coordenadas, el tamaño, 
+			// x, y, ancho y alto dados
+			$destino = imagecrop($origen, ["x"=>0, "y"=>0, "width"=>1600, "height"=>600]);
+			// En este caso indicamos que el recorte comience desde la esquina superior 
+			// izquierda y se tome un rectángulo de 1600px de ancho y 600px de alto
+			
 			// Enviar imagen a la ruta especificada
-			imagejpeg($origen, $ruta);
+			imagejpeg($destino, $ruta);
 			
 			// Tanto imagecreatefromjpeg() como imagejpeg() son funciones de la extensión 'gd' de php
 			
@@ -35,6 +41,7 @@ class GestorSlide{
 			$respuesta = GestorSlideModel::mostrarImagenSlideModel($ruta, "slide");
 			
 			$enviarDatos = array(
+				"id"=>$respuesta['id'],
 				"ruta"=>$respuesta['ruta'],
 				"titulo"=>$respuesta['titulo'],
 				"descripcion"=>$respuesta['descripcion']
@@ -54,7 +61,7 @@ class GestorSlide{
 		
 		foreach($respuesta as $key => $item){
 			
-			echo '<li class="bloqueSlide"><span class="fa fa-times"></span><img src="'.substr($item['ruta'], 6).'" class="handleImg"></li>';
+			echo '<li id="'.$item['id'].'" class="bloqueSlide"><span class="fa fa-times eliminarSlide" ruta="'.$item['ruta'].'"></span><img src="'.substr($item['ruta'], 6).'" class="handleImg"></li>';
 			
 		}
 		
@@ -68,7 +75,7 @@ class GestorSlide{
 		
 		foreach($respuesta as $key => $item){
 			
-			echo '<li>
+			echo '<li id="item'.$item["id"].'">
 					<span class="fa fa-pencil" style="background:blue"></span>
 					<img src="'.substr($item['ruta'], 6).'" style="float:left; margin-bottom:10px" width="80%">
 					<h1>'.$item['titulo'].'</h1>
@@ -76,6 +83,20 @@ class GestorSlide{
 				</li>';
 			
 		}
+		
+	}
+	
+	// Eliminar item del slide
+	// -----------------------------------------------------------------
+	public function eliminarSlideController($datos){
+		
+		// Eliminamos en base de datos la ruta perteneciente al id del slide indicado
+		$respuesta = GestorSlideModel::eliminarSlideModel($datos, "slide");
+		
+		// Eliminamos el archivo físicamente
+		unlink($datos["rutaSlide"]);
+		
+		echo $respuesta;
 		
 	}
 	

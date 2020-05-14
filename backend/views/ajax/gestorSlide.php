@@ -24,12 +24,36 @@ class Ajax{
 		echo $respuesta;
 		
 	}
+	
+	// Eliminar item slide
+	// -----------------------------------------------------------------
+	public $idSlide;
+	public $rutaSlide;
+	
+	public function eliminarSlideAjax(){
+		
+		$datos = array("idSlide"=>$this->idSlide, "rutaSlide"=>$this->rutaSlide);
+		
+		$respuesta = GestorSlide::eliminarSlideController($datos);
+		
+		echo $respuesta;
+		
+	}
 
 }
 
 // Objetos
 // -----------------------------------------------------------------
-$a = new Ajax();
-$a -> nombreImagen = $_FILES["imagen"]["name"];
-$a -> imagenTemporal = $_FILES["imagen"]["tmp_name"];
-$a -> gestorSlideAjax();
+if(isset($_FILES["imagen"]["name"])){
+	$a = new Ajax();
+	$a -> nombreImagen = $_FILES["imagen"]["name"];
+	$a -> imagenTemporal = $_FILES["imagen"]["tmp_name"];
+	$a -> gestorSlideAjax();
+}
+
+if(isset($_POST["idSlide"])){
+	$a = new Ajax();
+	$a -> idSlide = $_POST["idSlide"];
+	$a -> rutaSlide = $_POST["rutaSlide"];
+	$a -> eliminarSlideAjax();
+}
