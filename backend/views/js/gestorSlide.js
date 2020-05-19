@@ -104,7 +104,24 @@ $("#columnasSlide").on("drop", function(e){
 					
 					$("#columnasSlide").append('<li id="'+respuesta["id"]+'" class="bloqueSlide"><span class="fa fa-times eliminarSlide"></span><img src="'+respuesta["ruta"].slice(6)+'" class="handleImg"></li>');
 					
-					$("#ordenarTextSlide").append('<li id="item'+respuesta["id"]+    '"><span class="fa fa-pencil" style="background:blue"></span><img src="'+respuesta["ruta"].slice(6)+'" style="float:left; margin-bottom:10px" width="80%"><h1>'+respuesta["titulo"]+'</h1><p>'+respuesta["descripcion"]+'</p></li>');
+					$("#ordenarTextSlide").append('<li id="item'+respuesta["id"]+'"><span class="fa fa-pencil" style="background:blue"></span><img src="'+respuesta["ruta"].slice(6)+'" style="float:left; margin-bottom:10px" width="80%"><h1>'+respuesta["titulo"]+'</h1><p>'+respuesta["descripcion"]+'</p></li>');
+					
+					// Esto se hace para recargar los registros de la base de datos
+					// con todos los atributos y pueda funcionar la acción de eliminar.
+					// Lo hacemos usando la librería SweetAlert para que la recarga no
+					// se note tanto para el usuario.
+					//~ window.location.reload();
+					swal({
+						title: "¡Ok!",
+						text: "¡La imagen se subió correctamente!",
+						type: "success",
+						confirmButtonText: "Cerrar",
+						closeOnConfirm: false
+					},function(isConfirm){
+						if(isConfirm){
+							window.location = "slide";
+						}
+					});
 					
 				}
 			
