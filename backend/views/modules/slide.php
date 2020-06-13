@@ -60,7 +60,12 @@ SLIDE ADMINISTRABLE
 	<hr>
 	
 	<ul>
-	   <li>
+		
+	   <?php
+			$slides -> seleccionarSlideController();
+	   ?>
+		
+	   <!--<li>
 		<img src="views/images/slide/slide01.jpg">
 		<div class="slideCaption">
 			<h3>Lorem Ipsum</h3>
@@ -90,15 +95,15 @@ SLIDE ADMINISTRABLE
 			<h3>Lorem Ipsum</h3>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 		</div>
-	   </li>
+	   </li>-->
 
 	</ul>
 
 	<ol id="indicadores">			
-		<li role-slide = "1"><span class="fa fa-circle"></span></li>
+		<!--<li role-slide = "1"><span class="fa fa-circle"></span></li>
 		<li role-slide = "2"><span class="fa fa-circle"></span></li>
 		<li role-slide = "3"><span class="fa fa-circle"></span></li>
-		<li role-slide = "4"><span class="fa fa-circle"></span></li>
+		<li role-slide = "4"><span class="fa fa-circle"></span></li>-->
 	</ol>
 
 	<div id="slideIzq"><span class="fa fa-chevron-left"></span></div>

@@ -9,6 +9,11 @@ $("#slide ul").css({"width": (cantidadImg*100) + "%"})
 $("#slide ul li").css({"width": (100/cantidadImg) + "%"})
 
 /* INDICADORES */
+for(var i=0; i < cantidadImg; i++){
+	
+	$("#indicadores").append('<li role-slide="'+(i+1)+'"><span class="fa fa-circle"></span></li>');
+	
+}
 
 $("#indicadores li").click(function(){
 

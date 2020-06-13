@@ -144,5 +144,25 @@ class GestorSlide{
 		
 	}
 	
+	// Listar slides en la pre-visualización del footer
+	// -----------------------------------------------------------------
+	public function seleccionarSlideController(){
+		
+		$respuesta = GestorSlideModel::seleccionarOrdenModel("slide");
+		
+		foreach($respuesta as $key => $item){
+			
+			echo '<li>
+					<img src="'.substr($item['ruta'], 6).'">
+					<div class="slideCaption">
+						<h3>'.$item['titulo'].'</h3>
+						<p>'.$item['descripcion'].'</p>
+					</div>
+				   </li>';
+			
+		}
+		
+	}
+	
 	
 }

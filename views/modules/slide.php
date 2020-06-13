@@ -3,7 +3,13 @@
 <div id="slide" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
 		<ul>
-		   <li>
+			
+		   <?php
+				$slide = new Slide();
+				$slide -> seleccionarSlideController();
+		   ?>
+			
+		   <!--<li>
 			<img src="views/images/slide/slide01.jpg">
 			<div class="slideCaption">
 				<h3>Lorem Ipsum</h3>
@@ -33,15 +39,15 @@
 				<h3>Lorem Ipsum</h3>
 				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 			</div>
-		   </li>
+		   </li>-->
 
 		</ul>
 
 		<ol id="indicadores">			
-			<li role-slide = "1"><span class="fa fa-circle"></span></li>
+			<!--<li role-slide = "1"><span class="fa fa-circle"></span></li>
 			<li role-slide = "2"><span class="fa fa-circle"></span></li>
 			<li role-slide = "3"><span class="fa fa-circle"></span></li>
-			<li role-slide = "4"><span class="fa fa-circle"></span></li>
+			<li role-slide = "4"><span class="fa fa-circle"></span></li>-->
 		</ol>
 
 		<div id="slideIzq"><span class="fa fa-chevron-left"></span></div>

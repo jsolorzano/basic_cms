@@ -39,5 +39,7 @@
 		</ul>
 
 	</nav>
+	
+	<a href="../index.php" target="_blank"><button class="btn btn-primary">Ver sitio</button></a>
 
 </div>
