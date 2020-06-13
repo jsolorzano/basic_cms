@@ -76,5 +76,82 @@ class GestorSlideModel{
 		
 	}
 	
+	// Actualizar item del slide
+	// -----------------------------------------------------------------
+	public function actualizarSlideModel($datos, $tabla){
+		
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET titulo = :titulo, descripcion = :descripcion WHERE id = :id");
+		
+		$stmt -> bindParam(":id", $datos["enviarId"], PDO::PARAM_INT);
+		$stmt -> bindParam(":titulo", $datos["enviarTitulo"], PDO::PARAM_STR);
+		$stmt -> bindParam(":descripcion", $datos["enviarDescripcion"], PDO::PARAM_STR);
+		
+		if($stmt->execute()){
+			
+			return "ok";
+			
+		}else{
+			
+			return "error";
+			
+		}
+		
+		$stmt->close();
+		
+	}
+	
+	// Seleccionar actualización del item del slide
+	// -----------------------------------------------------------------
+	public function seleccionarActualizacionSlideModel($datos, $tabla){
+		
+		$stmt = Conexion::conectar()->prepare("SELECT titulo, descripcion FROM $tabla WHERE id = :id");
+		
+		$stmt -> bindParam(":id", $datos["enviarId"], PDO::PARAM_INT);
+		
+		$stmt -> execute();
+			
+		return $stmt -> fetch();
+		
+		$stmt -> close();
+		
+	}
+	
+	// Actualizar orden slides
+	// -----------------------------------------------------------------
+	public function actualizarOrdenModel($datos, $tabla){
+		
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET orden = :orden WHERE id = :id");
+		
+		$stmt -> bindParam(":id", $datos["ordenSlide"], PDO::PARAM_INT);
+		$stmt -> bindParam(":orden", $datos["ordenItem"], PDO::PARAM_INT);
+		
+		if($stmt->execute()){
+			
+			return "ok";
+			
+		}else{
+			
+			return "error";
+			
+		}
+		
+		$stmt->close();
+		
+	}
+	
+	// Seleccionar orden de las imágenes
+	// -----------------------------------------------------------------
+	public function seleccionarOrdenModel($tabla){
+		
+		$stmt = Conexion::conectar()->prepare("SELECT id, ruta, titulo, descripcion FROM $tabla ORDER BY orden ASC");
+		
+		$stmt->execute();
+			
+		return $stmt->fetchAll();
+		
+		$stmt->close();
+		
+	}
+	
 }
 

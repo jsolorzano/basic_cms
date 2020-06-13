@@ -76,7 +76,7 @@ class GestorSlide{
 		foreach($respuesta as $key => $item){
 			
 			echo '<li id="item'.$item["id"].'">
-					<span class="fa fa-pencil" style="background:blue"></span>
+					<span class="fa fa-pencil editarSlide" style="background:blue"></span>
 					<img src="'.substr($item['ruta'], 6).'" style="float:left; margin-bottom:10px" width="80%">
 					<h1>'.$item['titulo'].'</h1>
 					<p>'.$item['descripcion'].'</p>
@@ -97,6 +97,50 @@ class GestorSlide{
 		unlink($datos["rutaSlide"]);
 		
 		echo $respuesta;
+		
+	}
+	
+	// Actualizar item del slide
+	// -----------------------------------------------------------------
+	public function actualizarSlideController($datos){
+		
+		// Actualizamos en base de datos el título y la descripción perteneciente al id del slide indicado
+		$respuesta = GestorSlideModel::actualizarSlideModel($datos, "slide");
+		
+		if($respuesta == "ok"){
+			
+			$respuesta2 = GestorSlideModel::seleccionarActualizacionSlideModel($datos, "slide");
+		
+			echo json_encode($respuesta2);
+			
+		}else{
+			
+			//~ echo json_encode(array("respuesta" => $respuesta));
+			echo $respuesta;
+			
+		}
+		
+	}
+	
+	// Actualizar orden slides
+	// -----------------------------------------------------------------
+	public function actualizarOrdenController($datos){
+		
+		// Actualizamos en base de datos el título y la descripción perteneciente al id del slide indicado
+		GestorSlideModel::actualizarOrdenModel($datos, "slide");
+		
+		$respuesta = GestorSlideModel::seleccionarOrdenModel("slide");
+		
+		foreach($respuesta as $row => $item){
+			
+			echo '<li id="item'.$item["id"].'">
+					<span class="fa fa-pencil editarSlide" style="background:blue"></span>
+					<img src="'.substr($item['ruta'], 6).'" style="float:left; margin-bottom:10px" width="80%">
+					<h1>'.$item['titulo'].'</h1>
+					<p>'.$item['descripcion'].'</p>
+				</li>';
+			
+		}
 		
 	}
 	

@@ -39,11 +39,43 @@ class Ajax{
 		echo $respuesta;
 		
 	}
+	
+	// Actualizar item slide
+	// -----------------------------------------------------------------
+	public $enviarId;
+	public $enviarTitulo;
+	public $enviarDescripcion;
+	
+	public function actualizarSlideAjax(){
+		
+		$datos = array("enviarId"=>$this->enviarId, "enviarTitulo"=>$this->enviarTitulo, "enviarDescripcion"=>$this->enviarDescripcion);
+		
+		$respuesta = GestorSlide::actualizarSlideController($datos);
+		
+		echo $respuesta;
+		
+	}
+	
+	// Actualizar orden slide
+	// -----------------------------------------------------------------
+	public $actualizarOrdenSlide;
+	public $actualizarOrdenItem;
+	
+	public function actualizarOrdenAjax(){
+		
+		$datos = array("ordenSlide"=>$this->actualizarOrdenSlide, "ordenItem"=>$this->actualizarOrdenItem);
+		
+		$respuesta = GestorSlide::actualizarOrdenController($datos);
+		
+		echo $respuesta;
+		
+	}
 
 }
 
 // Objetos
 // -----------------------------------------------------------------
+// Subir imagen
 if(isset($_FILES["imagen"]["name"])){
 	$a = new Ajax();
 	$a -> nombreImagen = $_FILES["imagen"]["name"];
@@ -51,9 +83,27 @@ if(isset($_FILES["imagen"]["name"])){
 	$a -> gestorSlideAjax();
 }
 
+// Eliminar slide
 if(isset($_POST["idSlide"])){
-	$a = new Ajax();
-	$a -> idSlide = $_POST["idSlide"];
-	$a -> rutaSlide = $_POST["rutaSlide"];
-	$a -> eliminarSlideAjax();
+	$b = new Ajax();
+	$b -> idSlide = $_POST["idSlide"];
+	$b -> rutaSlide = $_POST["rutaSlide"];
+	$b -> eliminarSlideAjax();
+}
+
+// Actualizar slide
+if(isset($_POST["enviarId"])){
+	$c = new Ajax();
+	$c -> enviarId = $_POST["enviarId"];
+	$c -> enviarTitulo = $_POST["enviarTitulo"];
+	$c -> enviarDescripcion = $_POST["enviarDescripcion"];
+	$c -> actualizarSlideAjax();
+}
+
+// Actualizar orden slides
+if(isset($_POST["actualizarOrdenSlide"])){
+	$d = new Ajax();
+	$d -> actualizarOrdenSlide = $_POST["actualizarOrdenSlide"];
+	$d -> actualizarOrdenItem = $_POST["actualizarOrdenItem"];
+	$d -> actualizarOrdenAjax();
 }
